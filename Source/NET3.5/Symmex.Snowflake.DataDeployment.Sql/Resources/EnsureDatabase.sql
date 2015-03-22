@@ -1,0 +1,2 @@
+﻿IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = '{0}')
+CREATE DATABASE {0}

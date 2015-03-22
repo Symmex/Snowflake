@@ -1,0 +1,1 @@
+﻿INSERT INTO dbo.DataScriptInfo(Id, ExecutedDate, [Hash]) VALUES(@Id, @ExecutedDate, @Hash)
