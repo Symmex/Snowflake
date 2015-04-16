@@ -16,13 +16,21 @@ Public MustInherit Class DistributedCommand(Of T)
     Public MustOverride Function Execute() As T Implements IDistributedCommand(Of T).Execute
 
     Private Function ICommand_Execute() As Object Implements IDistributedCommand.Execute
-        Return Me.Execute()
+        Try
+            Return Me.Execute()
+        Catch ex As Exception
+            Me.OnError(ex)
+            Throw ex
+        End Try
     End Function
 
     Public Overridable Sub BeforeExecute() Implements IDistributedCommand.BeforeExecute
     End Sub
 
     Public Overridable Sub AfterExecute() Implements IDistributedCommand.AfterExecute
+    End Sub
+
+    Protected Overridable Sub OnError(ex As Exception)
     End Sub
 
 End Class

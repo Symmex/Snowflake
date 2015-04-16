@@ -93,6 +93,7 @@
     <Import Include="System.Windows.Navigation" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessKeyScope.vb" />
     <Compile Include="BeginInvokeCommandBehavior.vb" />
     <Compile Include="ClickEventBinding.vb" />
     <Compile Include="CommandBehavior.vb" />

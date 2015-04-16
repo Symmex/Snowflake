@@ -82,6 +82,9 @@
     <Import Include="System.Windows.Navigation" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\AccessKeyScope.vb">
+      <Link>AccessKeyScope.vb</Link>
+    </Compile>
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\BeginInvokeCommandBehavior.vb">
       <Link>BeginInvokeCommandBehavior.vb</Link>
     </Compile>

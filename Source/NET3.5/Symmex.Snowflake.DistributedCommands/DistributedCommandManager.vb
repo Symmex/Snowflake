@@ -2,7 +2,7 @@
 
 Public NotInheritable Class DistributedCommandManager
 
-    Private Shared ReadOnly Property Proxy As IDistributedCommandServiceProxy
+    Private Shared ReadOnly Property DefaultProxy As IDistributedCommandServiceProxy
         Get
             Dim value As IDistributedCommandServiceProxy = Nothing
             ObjectManager.TryResolve(Of IDistributedCommandServiceProxy)(value)
@@ -14,15 +14,18 @@ Public NotInheritable Class DistributedCommandManager
     End Sub
 
     Public Shared Function Execute(cmd As IDistributedCommand) As Object
+        Return Execute(cmd, DefaultProxy)
+    End Function
+
+    Public Shared Function Execute(cmd As IDistributedCommand, proxy As IDistributedCommandServiceProxy) As Object
         Dim result As Object
-        Dim currentProxy = Proxy
 
         'If we have no proxy, execute it locally
-        If currentProxy Is Nothing Then
+        If proxy Is Nothing Then
             result = ExecuteCommandLocally(cmd)
         Else
             Dim commandEnvelope = EncloseCommand(cmd)
-            Dim resultEnvelope = currentProxy.Execute(commandEnvelope)
+            Dim resultEnvelope = proxy.Execute(commandEnvelope)
             result = OpenResult(resultEnvelope)
         End If
 
@@ -64,7 +67,7 @@ Public NotInheritable Class DistributedCommandManager
 
     Public Shared Async Function ExecuteAsync(cmd As IDistributedCommand) As Task(Of Object)
         Dim result As Object
-        Dim currentProxy = Proxy
+        Dim currentProxy = DefaultProxy
 
         'If we have no proxy, execute it locally
         If currentProxy Is Nothing Then
