@@ -79,6 +79,7 @@
     <Compile Include="ModuleConfiguration.vb" />
     <Compile Include="ModuleConfigurationCollection.vb" />
     <Compile Include="ActivatorModuleFactory.vb" />
+    <Compile Include="ModuleLoaderException.vb" />
     <Compile Include="ModuleLoaderProvider.vb" />
     <Compile Include="ModuleLoader.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

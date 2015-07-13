@@ -36,6 +36,10 @@ Public NotInheritable Class DistributedCommandManager
         Return DirectCast(Execute(DirectCast(cmd, IDistributedCommand)), T)
     End Function
 
+    Public Shared Function Execute(Of T)(cmd As IDistributedCommand(Of T), proxy As IDistributedCommandServiceProxy) As T
+        Return DirectCast(Execute(DirectCast(cmd, IDistributedCommand), proxy), T)
+    End Function
+
     Private Shared Function ExecuteCommandLocally(cmd As IDistributedCommand) As Object
         cmd.BeforeExecute()
         Dim result = cmd.Execute()

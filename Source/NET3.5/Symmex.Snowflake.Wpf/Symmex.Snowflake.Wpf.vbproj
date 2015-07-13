@@ -100,6 +100,8 @@
     <Compile Include="CommandBehavior.vb" />
     <Compile Include="DropDownButton.vb" />
     <Compile Include="InvertedBooleanConverter.vb" />
+    <Compile Include="KeyEventBinding.vb" />
+    <Compile Include="MouseButtonEventBinding.vb" />
     <Compile Include="PreviewKeyDownEventBinding.vb" />
     <Compile Include="KeyDownEventBinding.vb" />
     <Compile Include="DependencyObjectExtensions.vb" />

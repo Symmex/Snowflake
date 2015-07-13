@@ -31,20 +31,35 @@
         End Set
     End Property
 
+    Public Shared ReadOnly HandledProperty As DependencyProperty = DependencyProperty.Register("Handled", GetType(Boolean), GetType(EventBinding))
+    Public Property Handled As Boolean
+        Get
+            Return DirectCast(Me.GetValue(HandledProperty), Boolean)
+        End Get
+        Set(value As Boolean)
+            Me.SetValue(HandledProperty, value)
+        End Set
+    End Property
+
     Protected Overrides Sub OnAttached()
         Dim fe = DirectCast(Me.Element, FrameworkElement)
         fe.AddHandler(Me.RoutedEvent, New RoutedEventHandler(AddressOf Me.OnEventRaised), Me.HandledEventsToo)
     End Sub
 
-    Protected Overridable Sub OnEventRaised(sender As Object, e As RoutedEventArgs)
-        If Me.OnlyHandleDirectEvents AndAlso Not e.OriginalSource Is Me.Element Then
+    Protected Overrides Sub OnEventRaised(sender As Object, e As EventArgs)
+        Dim args = DirectCast(e, RoutedEventArgs)
+
+        If Me.OnlyHandleDirectEvents AndAlso Not args.OriginalSource Is Me.Element Then
             Exit Sub
         End If
 
-        Dim parameter = If(Me.CommandParameter, e)
+        args.Handled = Me.Handled
 
-        Me.ExecuteCommand(parameter)
-        e.Handled = Me.Handled
+        MyBase.OnEventRaised(sender, e)
     End Sub
+
+    Protected Overrides Function CreateInstanceCore() As Freezable
+        Return New RoutedEventBinding()
+    End Function
 
 End Class

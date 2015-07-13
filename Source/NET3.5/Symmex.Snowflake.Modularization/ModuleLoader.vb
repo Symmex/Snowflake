@@ -29,15 +29,30 @@ Public Class ModuleLoader
         Dim moduleInstance As IModule
         Dim modules As New List(Of IModule)()
         For Each mc In moduleConfigurations
-            moduleAssembly = _Provider.LoadAssembly(mc.AssemblyFile)
-            moduleType = moduleAssembly.GetType(mc.ModuleType)
-            moduleInstance = _Factory.CreateModule(moduleType)
-            moduleInstance.BeginInitialize()
+            Try
+                moduleAssembly = _Provider.LoadAssembly(mc.AssemblyFile)
+                moduleType = moduleAssembly.GetType(mc.ModuleType)
+                moduleInstance = _Factory.CreateModule(moduleType)
+            Catch ex As Exception
+                Throw New ModuleLoaderException(mc.ModuleType, mc.AssemblyFile, "Error while creating module instance.", ex)
+            End Try
+
+            Try
+                moduleInstance.BeginInitialize()
+            Catch ex As Exception
+                Throw New ModuleLoaderException(moduleType.Name, moduleType.Assembly.GetName().Name, "Error occured in BeginInitialize.", ex)
+            End Try
+
             modules.Add(moduleInstance)
         Next
 
         For Each m In modules
-            m.EndInitialize()
+            Try
+                m.EndInitialize()
+            Catch ex As Exception
+                moduleType = m.GetType()
+                Throw New ModuleLoaderException(moduleType.Name, moduleType.Assembly.GetName().Name, "Error occured in EndInitialize.", ex)
+            End Try
         Next
 
         Return modules

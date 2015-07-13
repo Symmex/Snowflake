@@ -1,28 +1,17 @@
 ﻿Public Class KeyDownEventBinding
-    Inherits EventBinding
+    Inherits KeyEventBinding
 
-    Public Shared ReadOnly KeyProperty As DependencyProperty = DependencyProperty.Register("Key", GetType(Key?), GetType(KeyDownEventBinding))
-    Public Property Key As Key?
+    Private Shadows Property RoutedEvent As RoutedEvent
         Get
-            Return DirectCast(Me.GetValue(KeyProperty), Key?)
+            Return MyBase.RoutedEvent
         End Get
-        Set(value As Key?)
-            Me.SetValue(KeyProperty, value)
+        Set(value As RoutedEvent)
+            MyBase.RoutedEvent = value
         End Set
     End Property
 
-    Protected Overrides Sub OnAttached()
-        Dim c = DirectCast(Me.Element, Control)
-        AddHandler c.KeyDown, AddressOf Me.OnKeyDown
-    End Sub
-
-    Private Sub OnKeyDown(sender As Object, e As RoutedEventArgs)
-        Dim args = DirectCast(e, KeyEventArgs)
-
-        If Me.Key Is Nothing OrElse args.Key = Me.Key Then
-            e.Handled = Me.Handled
-            Me.ExecuteCommand()
-        End If
+    Public Sub New()
+        MyBase.RoutedEvent = UIElement.KeyDownEvent
     End Sub
 
     Protected Overrides Function CreateInstanceCore() As Freezable

@@ -1,32 +1,21 @@
 ﻿Public Class KeyUpEventBinding
-    Inherits EventBinding
+    Inherits KeyEventBinding
 
-    Public Shared ReadOnly KeyProperty As DependencyProperty = DependencyProperty.Register("Key", GetType(Key?), GetType(KeyUpEventBinding))
-    Public Property Key As Key?
+    Private Shadows Property RoutedEvent As RoutedEvent
         Get
-            Return DirectCast(Me.GetValue(KeyProperty), Key?)
+            Return MyBase.RoutedEvent
         End Get
-        Set(value As Key?)
-            Me.SetValue(KeyProperty, value)
+        Set(value As RoutedEvent)
+            MyBase.RoutedEvent = value
         End Set
     End Property
 
-    Protected Overrides Sub OnAttached()
-        Dim c = DirectCast(Me.Element, Control)
-        AddHandler c.KeyUp, AddressOf Me.OnKeyUp
-    End Sub
-
-    Private Sub OnKeyUp(sender As Object, e As RoutedEventArgs)
-        Dim args = DirectCast(e, KeyEventArgs)
-
-        If Me.Key Is Nothing OrElse args.Key = Me.Key Then
-            e.Handled = Me.Handled
-            Me.ExecuteCommand()
-        End If
+    Public Sub New()
+        MyBase.RoutedEvent = UIElement.KeyUpEvent
     End Sub
 
     Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New KeyUpEventBinding()
+        Return New KeyDownEventBinding()
     End Function
 
 End Class

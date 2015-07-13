@@ -133,11 +133,17 @@
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\KeyDownEventBinding.vb">
       <Link>KeyDownEventBinding.vb</Link>
     </Compile>
+    <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\KeyEventBinding.vb">
+      <Link>KeyEventBinding.vb</Link>
+    </Compile>
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\KeyUpEventBinding.vb">
       <Link>KeyUpEventBinding.vb</Link>
     </Compile>
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\LoadedEventBinding.vb">
       <Link>LoadedEventBinding.vb</Link>
+    </Compile>
+    <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\MouseButtonEventBinding.vb">
+      <Link>MouseButtonEventBinding.vb</Link>
     </Compile>
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\MouseDoubleClickEventBinding.vb">
       <Link>MouseDoubleClickEventBinding.vb</Link>

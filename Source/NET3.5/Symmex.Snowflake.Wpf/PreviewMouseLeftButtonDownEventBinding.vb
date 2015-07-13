@@ -1,14 +1,17 @@
 ﻿Public Class PreviewMouseLeftButtonDownEventBinding
-    Inherits EventBinding
+    Inherits MouseButtonEventBinding
 
-    Protected Overrides Sub OnAttached()
-        Dim e = DirectCast(Me.Element, UIElement)
-        AddHandler e.PreviewMouseLeftButtonDown, AddressOf Me.OnPreviewMouseLeftButtonDown
-    End Sub
+    Private Shadows Property RoutedEvent As RoutedEvent
+        Get
+            Return MyBase.RoutedEvent
+        End Get
+        Set(value As RoutedEvent)
+            MyBase.RoutedEvent = value
+        End Set
+    End Property
 
-    Private Sub OnPreviewMouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
-        e.Handled = Me.Handled
-        Me.ExecuteCommand()
+    Public Sub New()
+        MyBase.RoutedEvent = UIElement.PreviewMouseLeftButtonDownEvent
     End Sub
 
     Protected Overrides Function CreateInstanceCore() As Freezable

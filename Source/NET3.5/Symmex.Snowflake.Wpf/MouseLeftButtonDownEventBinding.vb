@@ -1,14 +1,17 @@
 ﻿Public Class MouseLeftButtonDownEventBinding
-    Inherits EventBinding
+    Inherits MouseButtonEventBinding
 
-    Protected Overrides Sub OnAttached()
-        Dim c = DirectCast(Me.Element, Control)
-        c.AddHandler(UIElement.MouseLeftButtonDownEvent, New RoutedEventHandler(AddressOf Me.OnMouseLeftButtonDown), True)
-    End Sub
+    Private Shadows Property RoutedEvent As RoutedEvent
+        Get
+            Return MyBase.RoutedEvent
+        End Get
+        Set(value As RoutedEvent)
+            MyBase.RoutedEvent = value
+        End Set
+    End Property
 
-    Private Sub OnMouseLeftButtonDown(sender As Object, e As RoutedEventArgs)
-        e.Handled = Me.Handled
-        Me.ExecuteCommand()
+    Public Sub New()
+        MyBase.RoutedEvent = UIElement.MouseLeftButtonDownEvent
     End Sub
 
     Protected Overrides Function CreateInstanceCore() As Freezable

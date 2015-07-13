@@ -119,6 +119,9 @@
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Modularization\ModuleLoader.vb">
       <Link>ModuleLoader.vb</Link>
     </Compile>
+    <Compile Include="..\..\NET3.5\Symmex.Snowflake.Modularization\ModuleLoaderException.vb">
+      <Link>ModuleLoaderException.vb</Link>
+    </Compile>
     <Compile Include="ModuleLoaderProvider.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
   </ItemGroup>
