@@ -2,7 +2,7 @@
 Imports System.Text
 Imports System.Runtime.Serialization.Json
 
-Public Class JsonSerializer
+Friend Class JsonSerializer
     Inherits Serializer
 
     Public Overrides Function Deserialize(itemType As Type, rawItem As String) As Object

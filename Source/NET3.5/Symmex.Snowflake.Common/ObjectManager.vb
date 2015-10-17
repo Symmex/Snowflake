@@ -13,12 +13,12 @@
 
     Public Shared Sub Register(Of T)(instance As T)
         Dim typeKey = GetType(T)
-        Register(Of T)(typeKey, instance)
+        Register(typeKey, instance)
     End Sub
 
     Public Shared Sub Register(Of T)(key As Object, instance As T)
         Dim path As New ObjectManagerPath(GetType(T), key)
-        Register(Of T)(path, instance)
+        Register(path, instance)
     End Sub
 
     Public Shared Sub Register(Of T)(path As ObjectManagerPath, instance As T)
@@ -27,12 +27,12 @@
 
     Public Shared Sub Register(Of T)(method As Func(Of T))
         Dim typeKey = GetType(T)
-        Register(Of T)(typeKey, method)
+        Register(typeKey, method)
     End Sub
 
     Public Shared Sub Register(Of T)(key As Object, method As Func(Of T))
         Dim path As New ObjectManagerPath(GetType(T), key)
-        Register(Of T)(path, method)
+        Register(path, method)
     End Sub
 
     Public Shared Sub Register(Of T)(path As ObjectManagerPath, method As Func(Of T))
@@ -41,12 +41,12 @@
 
     Public Shared Sub Register(Of T)(resolver As IResolver(Of T))
         Dim typeKey = GetType(T)
-        Register(Of T)(typeKey, resolver)
+        Register(typeKey, resolver)
     End Sub
 
     Public Shared Sub Register(Of T)(key As Object, resolver As IResolver(Of T))
         Dim path As New ObjectManagerPath(GetType(T), key)
-        Register(Of T)(path, resolver)
+        Register(path, resolver)
     End Sub
 
     Public Shared Sub Register(Of T)(path As ObjectManagerPath, resolver As IResolver(Of T))
@@ -60,6 +60,10 @@
 
     Public Shared Sub Unregister(Of T)(key As Object)
         Dim path As New ObjectManagerPath(GetType(T), key)
+        Unregister(Of T)(path)
+    End Sub
+
+    Public Shared Sub Unregister(Of T)(path As ObjectManagerPath)
         Root.Unregister(path, 0)
     End Sub
 
@@ -87,9 +91,20 @@
         Return CanResolve(itemType, key)
     End Function
 
+    Public Shared Function TryResolve(Of T)() As T
+        Dim typeKey = GetType(T)
+        Return TryResolve(Of T)(typeKey)
+    End Function
+
+    Public Shared Function TryResolve(Of T)(key As Object) As T
+        Dim item As T
+        TryResolve(key, item)
+        Return item
+    End Function
+
     Public Shared Function TryResolve(Of T)(ByRef value As T) As Boolean
         Dim typeKey = GetType(T)
-        Return TryResolve(Of T)(typeKey, value)
+        Return TryResolve(typeKey, value)
     End Function
 
     Public Shared Function TryResolve(Of T)(key As Object, ByRef value As T) As Boolean

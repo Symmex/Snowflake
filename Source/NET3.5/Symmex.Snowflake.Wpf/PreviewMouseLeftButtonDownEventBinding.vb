@@ -14,8 +14,4 @@
         MyBase.RoutedEvent = UIElement.PreviewMouseLeftButtonDownEvent
     End Sub
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New PreviewMouseLeftButtonDownEventBinding()
-    End Function
-
 End Class

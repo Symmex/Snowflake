@@ -6,3 +6,13 @@
     Sub Validate(ByVal item As Object, ByVal propertyName As String, ByVal result As ValidationResult)
 
 End Interface
+
+Public Interface IValidator(Of T)
+    Inherits IValidator
+
+    Overloads Function Validate(ByVal item As T) As ValidationResult
+    Overloads Sub Validate(ByVal item As T, ByVal result As ValidationResult)
+    Overloads Function Validate(ByVal item As T, ByVal propertyName As String) As ValidationResult
+    Overloads Sub Validate(ByVal item As T, ByVal propertyName As String, ByVal result As ValidationResult)
+
+End Interface

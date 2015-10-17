@@ -1,7 +1,7 @@
 ﻿Public Class RoutedEventBinding
     Inherits EventBinding
 
-    Public Shared ReadOnly RoutedEventProperty As DependencyProperty = DependencyProperty.Register("RoutedEvent", GetType(RoutedEvent), GetType(RoutedEventBinding))
+    Public Shared ReadOnly RoutedEventProperty As DependencyProperty = DependencyProperty.Register("RoutedEvent", GetType(RoutedEvent), GetType(RoutedEventBinding), New PropertyMetadata() With {.PropertyChangedCallback = New PropertyChangedCallback(AddressOf OnRoutedEventChanged)})
     Public Property RoutedEvent As RoutedEvent
         Get
             Return DirectCast(Me.GetValue(RoutedEventProperty), RoutedEvent)
@@ -42,8 +42,19 @@
     End Property
 
     Protected Overrides Sub OnAttached()
-        Dim fe = DirectCast(Me.Element, FrameworkElement)
-        fe.AddHandler(Me.RoutedEvent, New RoutedEventHandler(AddressOf Me.OnEventRaised), Me.HandledEventsToo)
+        Me.AddEventHandler()
+    End Sub
+
+    Private Shared Sub OnRoutedEventChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+        Dim b = DirectCast(d, RoutedEventBinding)
+        b.AddEventHandler()
+    End Sub
+
+    Private Sub AddEventHandler()
+        If Me.RoutedEvent IsNot Nothing AndAlso Me.Element IsNot Nothing Then
+            Dim fe = DirectCast(Me.Element, FrameworkElement)
+            fe.AddHandler(Me.RoutedEvent, New RoutedEventHandler(AddressOf Me.OnEventRaised), Me.HandledEventsToo)
+        End If
     End Sub
 
     Protected Overrides Sub OnEventRaised(sender As Object, e As EventArgs)
@@ -57,9 +68,5 @@
 
         MyBase.OnEventRaised(sender, e)
     End Sub
-
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New RoutedEventBinding()
-    End Function
 
 End Class

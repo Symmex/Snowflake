@@ -11,10 +11,6 @@
         End Set
     End Property
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New PasswordBinding()
-    End Function
-
     Protected Overrides Sub OnAttached()
         Dim pb = DirectCast(Me.Element, PasswordBox)
         AddHandler pb.PasswordChanged, AddressOf Me.OnPasswordBoxPasswordChanged

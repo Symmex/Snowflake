@@ -3,10 +3,6 @@
 Public Class SelectAllOnFocusBehavior
     Inherits Behavior
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New SelectAllOnFocusBehavior()
-    End Function
-
     Protected Overrides Sub OnAttached()
         Dim fe = DirectCast(Me.Element, FrameworkElement)
 

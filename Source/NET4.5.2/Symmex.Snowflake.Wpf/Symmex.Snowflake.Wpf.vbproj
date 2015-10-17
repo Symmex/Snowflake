@@ -127,6 +127,9 @@
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\InvertedBooleanConverter.vb">
       <Link>InvertedBooleanConverter.vb</Link>
     </Compile>
+    <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\IsNullConverter.vb">
+      <Link>IsNullConverter.vb</Link>
+    </Compile>
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\ItemProxy.vb">
       <Link>ItemProxy.vb</Link>
     </Compile>

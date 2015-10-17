@@ -14,8 +14,4 @@
         MyBase.RoutedEvent = UIElement.KeyDownEvent
     End Sub
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New KeyDownEventBinding()
-    End Function
-
 End Class

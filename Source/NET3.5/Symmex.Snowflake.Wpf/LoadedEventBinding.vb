@@ -14,8 +14,4 @@ Public Class LoadedEventBinding
         Dispatcher.BeginInvoke(New Action(AddressOf Me.ExecuteCommand), DispatcherPriority.ContextIdle, Nothing)
     End Sub
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New LoadedEventBinding()
-    End Function
-
 End Class

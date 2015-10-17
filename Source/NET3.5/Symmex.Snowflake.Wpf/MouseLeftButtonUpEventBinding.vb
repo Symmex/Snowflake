@@ -14,8 +14,4 @@
         MyBase.RoutedEvent = UIElement.MouseLeftButtonUpEvent
     End Sub
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New MouseLeftButtonUpEventBinding()
-    End Function
-
 End Class

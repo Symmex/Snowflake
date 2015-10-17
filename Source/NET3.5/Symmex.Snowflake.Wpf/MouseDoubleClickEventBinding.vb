@@ -14,8 +14,4 @@
         MyBase.RoutedEvent = Control.MouseDoubleClickEvent
     End Sub
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New MouseDoubleClickEventBinding()
-    End Function
-
 End Class

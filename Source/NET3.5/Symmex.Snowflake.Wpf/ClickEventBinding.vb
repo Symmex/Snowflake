@@ -12,8 +12,4 @@ Public Class ClickEventBinding
         Me.ExecuteCommand()
     End Sub
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New ClickEventBinding()
-    End Function
-
 End Class

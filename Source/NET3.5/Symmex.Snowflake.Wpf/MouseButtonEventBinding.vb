@@ -21,8 +21,4 @@
         MyBase.OnEventRaised(sender, e)
     End Sub
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New MouseButtonEventBinding()
-    End Function
-
 End Class

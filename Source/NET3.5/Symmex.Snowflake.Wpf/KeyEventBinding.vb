@@ -35,8 +35,4 @@
         MyBase.OnEventRaised(sender, e)
     End Sub
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New KeyEventBinding()
-    End Function
-
 End Class

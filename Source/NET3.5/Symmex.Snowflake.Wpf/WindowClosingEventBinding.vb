@@ -26,8 +26,4 @@ Public Class WindowClosingEventBinding
         Me.ExecuteCommand(e)
     End Sub
 
-    Protected Overrides Function CreateInstanceCore() As Freezable
-        Return New WindowClosingEventBinding()
-    End Function
-
 End Class

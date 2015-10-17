@@ -7,7 +7,7 @@
 
 End Interface
 
-Public Interface IDistributedCommand(Of T)
+Public Interface IDistributedCommand(Of Out T)
     Inherits IDistributedCommand
 
     Overloads Function Execute() As T
