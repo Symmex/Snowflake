@@ -1,6 +1,5 @@
 ﻿Imports System.Runtime.Serialization
 
-<Serializable(), DataContract()>
 Public MustInherit Class DistributedCommand(Of T)
     Implements IDistributedCommand(Of T)
 

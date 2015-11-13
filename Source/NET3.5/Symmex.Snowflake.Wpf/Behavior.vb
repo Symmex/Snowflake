@@ -13,7 +13,7 @@
 
     Friend Sub Attach(element As DependencyObject)
         If _Element IsNot Nothing Then
-            Throw New InvalidOperationException("The behavior is already attached.")
+            Throw New BehaviorException(Me, String.Format("The behavior '{0}' is already attached to the element {1}.", Me, _Element))
         End If
 
         _Element = element

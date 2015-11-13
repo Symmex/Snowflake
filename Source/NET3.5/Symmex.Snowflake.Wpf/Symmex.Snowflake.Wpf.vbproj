@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="AccessKeyScope.vb" />
     <Compile Include="BeginInvokeCommandBehavior.vb" />
+    <Compile Include="BehaviorException.vb" />
     <Compile Include="ClickEventBinding.vb" />
     <Compile Include="CommandBehavior.vb" />
     <Compile Include="DropDownButton.vb" />

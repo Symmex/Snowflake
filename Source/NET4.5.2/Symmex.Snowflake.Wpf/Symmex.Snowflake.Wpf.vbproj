@@ -94,6 +94,9 @@
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\BehaviorCollection.vb">
       <Link>BehaviorCollection.vb</Link>
     </Compile>
+    <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\BehaviorException.vb">
+      <Link>BehaviorException.vb</Link>
+    </Compile>
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Wpf\BehaviorManager.vb">
       <Link>BehaviorManager.vb</Link>
     </Compile>

@@ -3,15 +3,11 @@
     Private Shared _Items As Dictionary(Of Type, DbType)
     Private Shared ReadOnly Property Items As Dictionary(Of Type, DbType)
         Get
-            If _Items Is Nothing Then
-                LoadItems()
-            End If
-
             Return _Items
         End Get
     End Property
 
-    Private Shared Sub LoadItems()
+    Shared Sub New()
         _Items = New Dictionary(Of Type, DbType)()
         _Items.Add(GetType(Byte), DbType.Byte)
         _Items.Add(GetType(Byte?), DbType.Byte)
