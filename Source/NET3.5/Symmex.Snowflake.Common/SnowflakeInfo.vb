@@ -2,7 +2,7 @@
 
     Public Const Name As String = "Snowflake"
     Public Const Company As String = "Symmex"
-    Public Const Version As String = "1.2.7.2"
+    Public Const Version As String = "1.2.9.0"
 
     Private Sub New()
     End Sub

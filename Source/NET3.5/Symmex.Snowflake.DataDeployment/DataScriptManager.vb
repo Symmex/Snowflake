@@ -131,33 +131,35 @@ Public MustInherit Class DataScriptManager
     End Sub
 
     Public Sub PrepareScripts()
-        Me.OutdatedScripts.Clear()
-        Me.ExistingScripts.Clear()
+        If Not _IsPrepared Then
+            Me.OutdatedScripts.Clear()
+            Me.ExistingScripts.Clear()
 
-        Using conn = Me.CreateConnection()
-            Using cmd = conn.CreateCommand()
-                cmd.CommandText = Me.DataScriptInfoQueryString
+            Using conn = Me.CreateConnection()
+                Using cmd = conn.CreateCommand()
+                    cmd.CommandText = Me.DataScriptInfoQueryString
 
-                Using dataReader = cmd.ExecuteReader()
-                    While dataReader.Read()
-                        Me.ExistingScripts.Add(Me.CreateDataScriptInfo(dataReader))
-                    End While
+                    Using dataReader = cmd.ExecuteReader()
+                        While dataReader.Read()
+                            Me.ExistingScripts.Add(Me.CreateDataScriptInfo(dataReader))
+                        End While
+                    End Using
                 End Using
             End Using
-        End Using
 
-        For Each script In Me.LoadedScripts
-            If Me.ExistingScripts.Contains(script.Id) Then
-                Dim existingScript = Me.ExistingScripts(script.Id)
-                If script.Hash <> existingScript.Hash Then
+            For Each script In Me.LoadedScripts
+                If Me.ExistingScripts.Contains(script.Id) Then
+                    Dim existingScript = Me.ExistingScripts(script.Id)
+                    If script.Hash <> existingScript.Hash Then
+                        Me.OutdatedScripts.Add(script)
+                    End If
+                Else
                     Me.OutdatedScripts.Add(script)
                 End If
-            Else
-                Me.OutdatedScripts.Add(script)
-            End If
-        Next
+            Next
 
-        _IsPrepared = True
+            _IsPrepared = True
+        End If
     End Sub
 
     Public Sub ExecuteScripts()
@@ -165,16 +167,7 @@ Public MustInherit Class DataScriptManager
     End Sub
 
     Public Sub ExecuteScripts(executeAll As Boolean)
-        If Not _IsPrepared Then
-            Me.PrepareScripts()
-        End If
-
-        Dim scriptsToRun As List(Of DataScript)
-        If executeAll Then
-            scriptsToRun = Me.LoadedScripts.ToList()
-        Else
-            scriptsToRun = Me.OutdatedScripts.ToList()
-        End If
+        Dim scriptsToRun = Me.GetScriptsToRun(executeAll)
 
         Using conn = Me.CreateConnection()
             For Each script In scriptsToRun
@@ -215,10 +208,11 @@ Public MustInherit Class DataScriptManager
         End Using
 
         'Update the script info with the new executed date and hash
-        Dim scriptInfo = New DataScriptInfo()
-        scriptInfo.Id = script.Id
-        scriptInfo.ExecutedDate = DateTimeOffset.Now
-        scriptInfo.Hash = script.Hash
+        Me.UpdateScriptInfo(script, conn)
+    End Sub
+
+    Private Sub UpdateScriptInfo(script As DataScript, conn As IDbConnection)
+        Dim scriptInfo = Me.CreateDataScriptInfo(script)
 
         If Me.ExistingScripts.Contains(script.Id) Then
             Me.UpdateDataScriptInfo(conn, scriptInfo)
@@ -226,6 +220,28 @@ Public MustInherit Class DataScriptManager
             Me.InsertDataScriptInfo(conn, scriptInfo)
         End If
     End Sub
+
+    Private Function GetScriptsToRun(executeAll As Boolean) As IEnumerable(Of DataScript)
+        Me.PrepareScripts()
+
+        Dim scriptsToRun As List(Of DataScript)
+        If executeAll Then
+            scriptsToRun = Me.LoadedScripts.ToList()
+        Else
+            scriptsToRun = Me.OutdatedScripts.ToList()
+        End If
+
+        Return scriptsToRun
+    End Function
+
+    Private Function CreateDataScriptInfo(script As DataScript) As DataScriptInfo
+        Dim scriptInfo = New DataScriptInfo()
+        scriptInfo.Id = script.Id
+        scriptInfo.ExecutedDate = DateTimeOffset.Now
+        scriptInfo.Hash = script.Hash
+
+        Return scriptInfo
+    End Function
 
     Private Sub EnsureDatabaseExists()
         Using conn = Me.CreateConnection(False)

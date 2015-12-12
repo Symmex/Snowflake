@@ -32,6 +32,7 @@
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>NETMajorVersion=4,NETMinorVersion=5</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -95,6 +96,7 @@
     </Compile>
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.DataAccess\FluentCommand.vb">
       <Link>FluentCommand.vb</Link>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.DataAccess\IDb.vb">
       <Link>IDb.vb</Link>

@@ -1,9 +1,10 @@
 ﻿Imports System.Runtime.CompilerServices
+Imports System.Data.Common
 
 Public Module DbConnectionExtensions
 
     <Extension()>
-    Public Sub Open(conn As IDbConnection, retryCount As Integer)
+    Public Sub Open(conn As DbConnection, retryCount As Integer)
         For attempt = 0 To retryCount
             Try
                 conn.Open()

@@ -22,7 +22,7 @@ Public NotInheritable Class DistributedCommandManager
 
         'If we have no proxy, execute it locally
         If proxy Is Nothing Then
-            result = ExecuteCommandLocally(cmd)
+            result = cmd.Execute()
         Else
             Dim commandEnvelope = EncloseCommand(cmd)
             Dim resultEnvelope = proxy.Execute(commandEnvelope)
@@ -38,14 +38,6 @@ Public NotInheritable Class DistributedCommandManager
 
     Public Shared Function Execute(Of T)(cmd As IDistributedCommand(Of T), proxy As IDistributedCommandServiceProxy) As T
         Return DirectCast(Execute(DirectCast(cmd, IDistributedCommand), proxy), T)
-    End Function
-
-    Private Shared Function ExecuteCommandLocally(cmd As IDistributedCommand) As Object
-        cmd.BeforeExecute()
-        Dim result = cmd.Execute()
-        cmd.AfterExecute()
-
-        Return result
     End Function
 
     Private Shared Function EncloseCommand(cmd As IDistributedCommand) As String
@@ -73,9 +65,8 @@ Public NotInheritable Class DistributedCommandManager
         Dim result As Object
         Dim currentProxy = DefaultProxy
 
-        'If we have no proxy, execute it locally
         If currentProxy Is Nothing Then
-            result = ExecuteCommandLocally(cmd)
+            result = Await cmd.ExecuteAsync()
         Else
             Dim commandEnvelope = EncloseCommand(cmd)
             Dim resultEnvelope = Await currentProxy.ExecuteAsync(commandEnvelope)

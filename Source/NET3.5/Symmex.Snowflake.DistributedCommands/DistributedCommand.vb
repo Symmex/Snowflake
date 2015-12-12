@@ -1,4 +1,5 @@
 ﻿Imports System.Runtime.Serialization
+Imports Symmex.Snowflake.DistributedCommands
 
 Public MustInherit Class DistributedCommand(Of T)
     Implements IDistributedCommand(Of T)
@@ -12,24 +13,22 @@ Public MustInherit Class DistributedCommand(Of T)
     Public Sub New()
     End Sub
 
-    Public MustOverride Function Execute() As T Implements IDistributedCommand(Of T).Execute
-
-    Private Function ICommand_Execute() As Object Implements IDistributedCommand.Execute
-        Try
-            Return Me.Execute()
-        Catch ex As Exception
-            Me.OnError(ex)
-            Throw ex
-        End Try
+    Public Function Execute() As T Implements IDistributedCommand(Of T).Execute
+        Return Nothing
     End Function
 
-    Public Overridable Sub BeforeExecute() Implements IDistributedCommand.BeforeExecute
-    End Sub
+    Private Function IDistributedCommand_Execute() As Object Implements IDistributedCommand.Execute
+        Return Me.Execute()
+    End Function
 
-    Public Overridable Sub AfterExecute() Implements IDistributedCommand.AfterExecute
-    End Sub
+#If NETMajorVersion >= 4 AndAlso NETMinorVersion >= 5 Then
+    Public Overridable Function ExecuteAsync() As Task(Of T) Implements IDistributedCommand(Of T).ExecuteAsync
+        Return Task.FromResult(Of T)(Nothing)
+    End Function
 
-    Protected Overridable Sub OnError(ex As Exception)
-    End Sub
+    Private Async Function IDistributedCommand_ExecuteAsync() As Task(Of Object) Implements IDistributedCommand.ExecuteAsync
+        Return Await Me.ExecuteAsync()
+    End Function
+#End If
 
 End Class
