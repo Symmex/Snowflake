@@ -1,7 +1,9 @@
 ﻿Imports System.Data.Common
-Imports System.Configuration
 Imports Symmex.Snowflake.DataAccess
 Imports System.Threading
+#If TargetFramework >= 4.0 Then
+Imports System.Threading.Tasks
+#End If
 
 Public Class Db
     Implements IDb
@@ -60,16 +62,15 @@ Public Class Db
         Return conn
     End Function
 
-#If NETMajorVersion >= 4 AndAlso NETMinorVersion >= 5 Then
+#If TargetFramework >= 4.0 Then
     Public Function OpenConnectionAsync() As Task(Of DbConnection) Implements IDb.OpenConnectionAsync
         Return Me.OpenConnectionAsync(CancellationToken.None)
     End Function
 
-    Public Async Function OpenConnectionAsync(cancellationToken As CancellationToken) As Task(Of DbConnection) Implements IDb.OpenConnectionAsync
+    Public Function OpenConnectionAsync(cancellationToken As CancellationToken) As Task(Of DbConnection) Implements IDb.OpenConnectionAsync
         Dim conn = Me.CreateConnection()
-        Await conn.OpenAsync(cancellationToken)
-
-        Return conn
+        Return conn.OpenAsync(cancellationToken) _
+            .ContinueWith(Function(ct) conn)
     End Function
 #End If
 

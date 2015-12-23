@@ -123,11 +123,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Symmex.Snowflake.Common\Symmex.Snowflake.Common.vbproj">
       <Project>{da2bd6fa-ab2c-422e-8678-f72efe4ad449}</Project>
-      <Name>Symmex.Snowflake.Common %28NET4.5.2\Symmex.Snowflake.Common%29</Name>
+      <Name>Symmex.Snowflake.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Symmex.Snowflake.DataDeployment\Symmex.Snowflake.DataDeployment.vbproj">
       <Project>{649c5028-0585-40cc-8fc7-9a018756dabc}</Project>
-      <Name>Symmex.Snowflake.DataDeployment %28NET4.5.2\Symmex.Snowflake.DataDeployment%29</Name>
+      <Name>Symmex.Snowflake.DataDeployment</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

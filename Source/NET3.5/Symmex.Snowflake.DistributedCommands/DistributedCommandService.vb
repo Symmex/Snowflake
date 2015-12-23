@@ -1,4 +1,8 @@
-﻿Public Class DistributedCommandService
+﻿#If TargetFramework >= 4.0 Then
+Imports System.Threading.Tasks
+#End If
+
+Public Class DistributedCommandService
     Implements IDistributedCommandService
 
     Public Function Execute(commandEnvelope As String) As String Implements IDistributedCommandService.Execute
@@ -26,13 +30,23 @@
         Return currentSerializer.Serialize(resultEnvelope)
     End Function
 
-#If NETMajorVersion >= 4 AndAlso NETMinorVersion >= 5 Then
-    Public Async Function ExecuteAsync(commandEnvelope As String) As Task(Of String) Implements IDistributedCommandService.ExecuteAsync
-        Dim cmd = Me.GetCommand(commandEnvelope)
-        Dim result = Await cmd.ExecuteAsync()
-        Dim resultEnvelope = Me.CreateResultEnvelope(cmd, result)
+#If TargetFramework >= 4.0 Then
+    Public Function BeginExecute(commandEnvelope As String, callback As AsyncCallback, state As Object) As IAsyncResult Implements IDistributedCommandService.BeginExecute
+        Dim completionSource As New TaskCompletionSource(Of String)(state)
 
-        Return resultEnvelope
+        Dim cmd = Me.GetCommand(commandEnvelope)
+        cmd.ExecuteAsync() _
+            .ContinueWith(Sub(ct)
+                              Dim resultEnvelope = Me.CreateResultEnvelope(cmd, ct.Result)
+                              completionSource.SetResult(resultEnvelope)
+                              callback.Invoke(completionSource.Task)
+                          End Sub)
+
+        Return completionSource.Task
+    End Function
+
+    Public Function EndExecute(result As IAsyncResult) As String Implements IDistributedCommandService.EndExecute
+        Return DirectCast(result, Task(Of String)).Result
     End Function
 #End If
 

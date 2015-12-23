@@ -116,7 +116,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Symmex.Snowflake.Common\Symmex.Snowflake.Common.vbproj">
       <Project>{41364aee-13a7-420f-8c07-a8197d6ad458}</Project>
-      <Name>Symmex.Snowflake.Common %28NET3.5\Symmex.Snowflake.Common%29</Name>
+      <Name>Symmex.Snowflake.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

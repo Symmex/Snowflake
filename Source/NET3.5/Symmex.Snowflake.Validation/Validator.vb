@@ -1,4 +1,7 @@
-﻿Imports Symmex.Snowflake.Validation
+﻿#If TargetFramework >= 4.0 Then
+Imports System.Threading.Tasks
+#End If
+Imports Symmex.Snowflake.Validation
 
 Public MustInherit Class Validator(Of T)
     Implements IValidator(Of T)
@@ -15,7 +18,7 @@ Public MustInherit Class Validator(Of T)
         End Get
     End Property
 
-#If NETMajorVersion >= 4 AndAlso NETMinorVersion >= 5 Then
+#If TargetFramework >= 4.0 Then
     Private _AsyncValidationMethods As Dictionary(Of String, Func(Of T, ValidationResult, Task))
     Protected ReadOnly Property AsyncValidationMethods As Dictionary(Of String, Func(Of T, ValidationResult, Task))
         Get
@@ -79,33 +82,44 @@ Public MustInherit Class Validator(Of T)
         End If
     End Sub
 
-#If NETMajorVersion >= 4 AndAlso NETMinorVersion >= 5 Then
-    Public Async Function ValidateAsync(item As T) As Task(Of ValidationResult) Implements IValidator(Of T).ValidateAsync
+#If TargetFramework >= 4.0 Then
+    Public Function ValidateAsync(item As T) As Task(Of ValidationResult) Implements IValidator(Of T).ValidateAsync
         Dim result As New ValidationResult()
-        Await Me.ValidateAsync(item, result)
 
-        Return result
+        Dim resultTask = Me.ValidateAsync(item, result) _
+            .ContinueWith(Function(t) result)
+
+        Return resultTask
     End Function
 
-    Public Async Function ValidateAsync(item As T, result As ValidationResult) As Task Implements IValidator(Of T).ValidateAsync
-        For Each method In Me.AsyncValidationMethods.Values
-            Await method.Invoke(item, result)
-        Next
+    Public Function ValidateAsync(item As T, result As ValidationResult) As Task Implements IValidator(Of T).ValidateAsync
+        Dim allTasks = (From method In Me.AsyncValidationMethods.Values
+                        Select method.Invoke(item, result)).ToArray()
+
+        Return Task.Factory _
+            .ContinueWhenAll(allTasks, Sub(tasks)
+                                       End Sub)
     End Function
 
-    Public Async Function ValidateAsync(item As T, propertyName As String) As Task(Of ValidationResult) Implements IValidator(Of T).ValidateAsync
+    Public Function ValidateAsync(item As T, propertyName As String) As Task(Of ValidationResult) Implements IValidator(Of T).ValidateAsync
         Dim result As New ValidationResult()
-        Await Me.ValidateAsync(item, propertyName, result)
 
-        Return result
+        Dim resultTask = Me.ValidateAsync(item, propertyName, result) _
+            .ContinueWith(Function(t) result)
+
+        Return resultTask
     End Function
 
-    Public Async Function ValidateAsync(item As T, propertyName As String, result As ValidationResult) As Task Implements IValidator(Of T).ValidateAsync
+    Public Function ValidateAsync(item As T, propertyName As String, result As ValidationResult) As Task Implements IValidator(Of T).ValidateAsync
         Dim method As Func(Of T, ValidationResult, Task) = Nothing
         If Me.AsyncValidationMethods.TryGetValue(propertyName, method) Then
             result.ClearErrors(propertyName)
-            Await method.Invoke(item, result)
+            Return method.Invoke(item, result)
         End If
+
+        Dim tcs As New TaskCompletionSource(Of Boolean)()
+        tcs.SetResult(True)
+        Return tcs.Task
     End Function
 
     Private Function IValidator_ValidateAsync(item As Object) As Task(Of ValidationResult) Implements IValidator.ValidateAsync

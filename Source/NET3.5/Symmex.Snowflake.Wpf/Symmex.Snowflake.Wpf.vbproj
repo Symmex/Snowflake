@@ -161,15 +161,15 @@
   <ItemGroup>
     <ProjectReference Include="..\Symmex.Snowflake.Common\Symmex.Snowflake.Common.vbproj">
       <Project>{41364AEE-13A7-420F-8C07-A8197D6AD458}</Project>
-      <Name>Symmex.Snowflake.Common %28NET3.5\Symmex.Snowflake.Common%29</Name>
+      <Name>Symmex.Snowflake.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Symmex.Snowflake.Modularization\Symmex.Snowflake.Modularization.vbproj">
       <Project>{5d721f96-cd0b-426f-823b-0b60fc58e2d7}</Project>
-      <Name>Symmex.Snowflake.Modularization %28NET3.5\Symmex.Snowflake.Modularization%29</Name>
+      <Name>Symmex.Snowflake.Modularization</Name>
     </ProjectReference>
     <ProjectReference Include="..\Symmex.Snowflake.Mvvm\Symmex.Snowflake.Mvvm.vbproj">
       <Project>{51a17c4c-4fd8-4b86-8fc3-f1b2ac84487d}</Project>
-      <Name>Symmex.Snowflake.Mvvm %28NET3.5\Symmex.Snowflake.Mvvm%29</Name>
+      <Name>Symmex.Snowflake.Mvvm</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

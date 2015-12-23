@@ -1,5 +1,10 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports System.Data.Common
+#If TargetFramework >= 4.0 Then
+Imports System.Threading
+Imports System.Threading.Tasks
+#End If
+Imports Symmex.Snowflake.Common
 
 Public Module DbConnectionExtensions
 
@@ -16,5 +21,13 @@ Public Module DbConnectionExtensions
             End Try
         Next
     End Sub
+
+#If TargetFramework = 4.0 Then
+    <Extension()>
+    Public Function OpenAsync(conn As DbConnection, cancellationToken As CancellationToken) As Task
+        conn.Open()
+        Return Task.Factory.CompletedTask()
+    End Function
+#End If
 
 End Module

@@ -1,5 +1,8 @@
 ﻿Imports System.Data.Common
 Imports System.Threading
+#If TargetFramework >= 4.0 Then
+Imports System.Threading.Tasks
+#End If
 
 Public Interface IDb
 
@@ -12,7 +15,7 @@ Public Interface IDb
     Function CreateCommand(ByVal text As String) As DbCommand
     Function CreateCommand(ByVal text As String, ByVal type As CommandType) As DbCommand
 
-#If NETMajorVersion >= 4 AndAlso NETMinorVersion >= 5 Then
+#If TargetFramework >= 4.0 Then
     Function OpenConnectionAsync() As Task(Of DbConnection)
     Function OpenConnectionAsync(cancellationToken As CancellationToken) As Task(Of DbConnection)
 #End If

@@ -1,5 +1,11 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports System.Data.Common
+Imports System.Data.SqlClient
+Imports System.Threading
+#If TargetFramework >= 4.0 Then
+Imports System.Threading.Tasks
+#End If
+Imports Symmex.Snowflake.Common
 
 Public Module DbCommandExtensions
 
@@ -26,10 +32,55 @@ Public Module DbCommandExtensions
         Return DirectCast(cmd.ExecuteScalar(), T)
     End Function
 
-#If NETMajorVersion >= 4 AndAlso NETMinorVersion >= 5 Then
+#If TargetFramework = 4.0 Then
     <Extension()>
-    Public Async Function ExecuteScalarAsync(Of T)(ByVal cmd As DbCommand) As Task(Of T)
-        Return DirectCast(Await cmd.ExecuteScalarAsync(), T)
+    Public Function ExecuteNonQueryAsync(cmd As DbCommand) As Task(Of Integer)
+        Return cmd.ExecuteNonQueryAsync(CancellationToken.None)
+    End Function
+
+    <Extension()>
+    Public Function ExecuteNonQueryAsync(cmd As DbCommand, cancellationToken As CancellationToken) As Task(Of Integer)
+        If TypeOf cmd Is FluentCommand Then
+            Return DirectCast(cmd, FluentCommand).ExecuteNonQueryAsync(cancellationToken)
+        End If
+
+        Return Task.Factory.FromResult(cmd.ExecuteNonQuery())
+    End Function
+
+    <Extension()>
+    Public Function ExecuteReaderAsync(cmd As DbCommand) As Task(Of DbDataReader)
+        Return cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection, CancellationToken.None)
+    End Function
+
+    <Extension()>
+    Public Function ExecuteReaderAsync(cmd As DbCommand, behavior As CommandBehavior) As Task(Of DbDataReader)
+        Return cmd.ExecuteReaderAsync(behavior, CancellationToken.None)
+    End Function
+
+    <Extension()>
+    Public Function ExecuteReaderAsync(cmd As DbCommand, behavior As CommandBehavior, cancellationToken As CancellationToken) As Task(Of DbDataReader)
+        If TypeOf cmd Is FluentCommand Then
+            Return DirectCast(cmd, FluentCommand).ExecuteReaderAsync(behavior, cancellationToken)
+        End If
+
+        Return Task.Factory.FromResult(cmd.ExecuteReader(behavior))
+    End Function
+
+    <Extension()>
+    Public Function ExecuteScalarAsync(Of TResult)(cmd As DbCommand) As Task(Of TResult)
+        Return cmd.ExecuteScalarAsync(Of TResult)(CancellationToken.None)
+    End Function
+
+    <Extension()>
+    Public Function ExecuteScalarAsync(Of TResult)(cmd As DbCommand, cancellationToken As CancellationToken) As Task(Of TResult)
+        If TypeOf cmd Is FluentCommand Then
+            Return DirectCast(cmd, FluentCommand).ExecuteScalarAsync(cancellationToken) _
+                .ContinueWith(Function(ct)
+                                  Return DirectCast(ct.Result, TResult)
+                              End Function)
+        End If
+
+        Return Task.Factory.FromResult(cmd.ExecuteScalar(Of TResult)())
     End Function
 #End If
 

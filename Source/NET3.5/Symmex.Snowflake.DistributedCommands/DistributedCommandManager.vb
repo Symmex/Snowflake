@@ -1,4 +1,7 @@
-﻿Imports Symmex.Snowflake.Common
+﻿#If TargetFramework >= 4.0 Then
+Imports System.Threading.Tasks
+#End If
+Imports Symmex.Snowflake.Common
 
 Public NotInheritable Class DistributedCommandManager
 
@@ -55,25 +58,23 @@ Public NotInheritable Class DistributedCommandManager
         Return currentSerializer.Deserialize(resultType, commandEnvelope.Item)
     End Function
 
-#If NETMajorVersion >= 4 AndAlso NETMinorVersion >= 5 Then
-    Public Shared Async Function ExecuteAsync(Of T)(cmd As IDistributedCommand(Of T)) As Task(Of T)
-        Dim result = Await ExecuteAsync(DirectCast(cmd, IDistributedCommand))
-        Return DirectCast(result, T)
+#If TargetFramework >= 4.0 Then
+    Public Shared Function ExecuteAsync(Of T)(cmd As IDistributedCommand(Of T)) As Task(Of T)
+        Return ExecuteAsync(DirectCast(cmd, IDistributedCommand)) _
+            .ContinueWith(Function(ct) DirectCast(ct.Result, T))
     End Function
 
-    Public Shared Async Function ExecuteAsync(cmd As IDistributedCommand) As Task(Of Object)
-        Dim result As Object
+    Public Shared Function ExecuteAsync(cmd As IDistributedCommand) As Task(Of Object)
         Dim currentProxy = DefaultProxy
 
         If currentProxy Is Nothing Then
-            result = Await cmd.ExecuteAsync()
+            Return cmd.ExecuteAsync()
         Else
             Dim commandEnvelope = EncloseCommand(cmd)
-            Dim resultEnvelope = Await currentProxy.ExecuteAsync(commandEnvelope)
-            result = OpenResult(resultEnvelope)
-        End If
 
-        Return result
+            Return currentProxy.ExecuteAsync(commandEnvelope) _
+                .ContinueWith(Function(ct) OpenResult(ct.Result))
+        End If
     End Function
 #End If
 

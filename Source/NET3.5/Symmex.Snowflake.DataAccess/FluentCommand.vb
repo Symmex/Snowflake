@@ -1,5 +1,10 @@
-﻿Imports System.Data.Common
+﻿#If TargetFramework >= 4.0 Then
+Imports System.Threading.Tasks
+#End If
+Imports System.Data.Common
+Imports System.Data.SqlClient
 Imports System.Threading
+Imports Symmex.Snowflake.Common
 
 Public Class FluentCommand
     Inherits DbCommand
@@ -121,7 +126,47 @@ Public Class FluentCommand
         End If
     End Sub
 
-#If NETMajorVersion >= 4 AndAlso NETMinorVersion >= 5 Then
+#If TargetFramework = 4.0 Then
+    Public Function ExecuteNonQueryAsync(cancellationToken As CancellationToken) As Task(Of Integer)
+        If TypeOf _InnerCommand Is SqlCommand Then
+            _InnerCommand.Connection = _Db.OpenConnection()
+            Dim sqlCmd = DirectCast(_InnerCommand, SqlCommand)
+
+            Return Task.Factory.FromAsync(AddressOf sqlCmd.BeginExecuteNonQuery, AddressOf sqlCmd.EndExecuteNonQuery, Nothing) _
+                .ContinueWith(Function(ct)
+                                  _InnerCommand.Connection.Dispose()
+                                  Return ct.Result
+                              End Function)
+        End If
+
+        Return Task.Factory.FromResult(Me.ExecuteNonQuery())
+    End Function
+
+    Public Function ExecuteReaderAsync(behavior As CommandBehavior, cancellationToken As CancellationToken) As Task(Of DbDataReader)
+        If TypeOf _InnerCommand Is SqlCommand Then
+            _InnerCommand.Connection = _Db.OpenConnection()
+            Dim sqlCmd = DirectCast(_InnerCommand, SqlCommand)
+
+            Return Task.Factory.FromAsync(AddressOf sqlCmd.BeginExecuteReader, AddressOf sqlCmd.EndExecuteReader, Nothing) _
+                .ContinueWith(Function(ct)
+                                  Return DirectCast(ct.Result, DbDataReader)
+                              End Function)
+        End If
+
+        Return Task.Factory.FromResult(Me.ExecuteReader(behavior))
+    End Function
+
+    Public Function ExecuteScalarAsync(cancellationToken As CancellationToken) As Task(Of Object)
+        Return Me.ExecuteReaderAsync(CommandBehavior.CloseConnection, cancellationToken) _
+            .ContinueWith(Function(ct)
+                              Dim reader = ct.Result
+                              reader.Read()
+                              Return reader.GetValue(0)
+                          End Function)
+    End Function
+#End If
+
+#If TargetFramework >= 4.5 Then
     Protected Overrides Async Function ExecuteDbDataReaderAsync(behavior As CommandBehavior, cancellationToken As CancellationToken) As Task(Of DbDataReader)
         Dim conn = Await _Db.OpenConnectionAsync(cancellationToken)
         _InnerCommand.Connection = conn
