@@ -1,4 +1,4 @@
-﻿#If TargetFramework >= 4.0 Then
+﻿#If TargetFramework >= "4.0" Then
 Imports System.Threading.Tasks
 #End If
 Imports System.Runtime.CompilerServices
@@ -39,14 +39,14 @@ Public Module DataReaderExtensions
 
 
 
-#If TargetFramework = 4.0 Then
+#If TargetFramework = "4.0" Then
     <Extension()>
     Public Function ReadAsync(reader As DbDataReader) As Task(Of Boolean)
         Return Task.Factory.FromResult(reader.Read())
     End Function
 #End If
 
-#If TargetFramework >= 4.0 Then
+#If TargetFramework >= "4.0" Then
     <Extension()>
     Public Function ToSingleAsync(Of T)(ByVal dataReader As DbDataReader, ByVal factoryMethod As Func(Of DbDataReader, T)) As Task(Of T)
         If dataReader Is Nothing Then

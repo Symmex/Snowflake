@@ -13,8 +13,8 @@ Public Module TaskFactoryExtensions
 
     <Extension()>
     Public Function CompletedTask(factory As TaskFactory) As Task
-        Dim completionSource As New TaskCompletionSource(Of Boolean)()
-        completionSource.SetResult(True)
+        Dim completionSource As New TaskCompletionSource(Of Object)()
+        completionSource.SetResult(Nothing)
         Return completionSource.Task
     End Function
 

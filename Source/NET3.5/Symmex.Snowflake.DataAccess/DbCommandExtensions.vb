@@ -2,7 +2,7 @@
 Imports System.Data.Common
 Imports System.Data.SqlClient
 Imports System.Threading
-#If TargetFramework >= 4.0 Then
+#If TargetFramework >= "4.0" Then
 Imports System.Threading.Tasks
 #End If
 Imports Symmex.Snowflake.Common
@@ -32,7 +32,7 @@ Public Module DbCommandExtensions
         Return DirectCast(cmd.ExecuteScalar(), T)
     End Function
 
-#If TargetFramework = 4.0 Then
+#If TargetFramework = "4.0" Then
     <Extension()>
     Public Function ExecuteNonQueryAsync(cmd As DbCommand) As Task(Of Integer)
         Return cmd.ExecuteNonQueryAsync(CancellationToken.None)
@@ -40,11 +40,12 @@ Public Module DbCommandExtensions
 
     <Extension()>
     Public Function ExecuteNonQueryAsync(cmd As DbCommand, cancellationToken As CancellationToken) As Task(Of Integer)
-        If TypeOf cmd Is FluentCommand Then
-            Return DirectCast(cmd, FluentCommand).ExecuteNonQueryAsync(cancellationToken)
+        Dim sc = TryCast(cmd, SqlCommand)
+        If sc Is Nothing Then
+            Return Task.Factory.FromResult(cmd.ExecuteNonQuery())
+        Else
+            Return Task.Factory.FromAsync(AddressOf sc.BeginExecuteNonQuery, AddressOf sc.EndExecuteNonQuery, Nothing)
         End If
-
-        Return Task.Factory.FromResult(cmd.ExecuteNonQuery())
     End Function
 
     <Extension()>
@@ -59,11 +60,32 @@ Public Module DbCommandExtensions
 
     <Extension()>
     Public Function ExecuteReaderAsync(cmd As DbCommand, behavior As CommandBehavior, cancellationToken As CancellationToken) As Task(Of DbDataReader)
-        If TypeOf cmd Is FluentCommand Then
-            Return DirectCast(cmd, FluentCommand).ExecuteReaderAsync(behavior, cancellationToken)
+        Dim tcs As New TaskCompletionSource(Of DbDataReader)()
+
+        Dim sc = TryCast(cmd, SqlCommand)
+        If sc Is Nothing Then
+            Try
+                Dim result = cmd.ExecuteReader(behavior)
+                tcs.SetResult(result)
+            Catch ex As Exception
+                tcs.SetException(ex)
+            End Try
+        Else
+            Task.Factory.FromAsync(AddressOf sc.BeginExecuteReader, AddressOf sc.EndExecuteReader, Nothing) _
+                .ContinueWith(Sub(t)
+                                  If t.IsFaulted Then
+                                      tcs.SetException(t.Exception)
+                                  End If
+
+                                  If t.IsCanceled Then
+                                      tcs.SetCanceled()
+                                  End If
+
+                                  tcs.SetResult(t.Result)
+                              End Sub)
         End If
 
-        Return Task.Factory.FromResult(cmd.ExecuteReader(behavior))
+        Return tcs.Task
     End Function
 
     <Extension()>
@@ -73,14 +95,39 @@ Public Module DbCommandExtensions
 
     <Extension()>
     Public Function ExecuteScalarAsync(Of TResult)(cmd As DbCommand, cancellationToken As CancellationToken) As Task(Of TResult)
-        If TypeOf cmd Is FluentCommand Then
-            Return DirectCast(cmd, FluentCommand).ExecuteScalarAsync(cancellationToken) _
-                .ContinueWith(Function(ct)
-                                  Return DirectCast(ct.Result, TResult)
-                              End Function)
-        End If
+        Dim tcs As New TaskCompletionSource(Of TResult)()
 
-        Return Task.Factory.FromResult(cmd.ExecuteScalar(Of TResult)())
+        cmd.ExecuteReaderAsync() _
+            .ContinueWith(Sub(ert)
+                              If ert.IsFaulted Then
+                                  tcs.SetException(ert.Exception)
+                              End If
+
+                              If ert.IsCanceled Then
+                                  tcs.SetCanceled()
+                              End If
+
+                              Dim reader = ert.Result
+                              reader.ReadAsync() _
+                              .ContinueWith(Sub(rt)
+                                                If rt.IsFaulted Then
+                                                    tcs.SetException(rt.Exception)
+                                                End If
+
+                                                If rt.IsCanceled Then
+                                                    tcs.SetCanceled()
+                                                End If
+
+                                                Try
+                                                    Dim result = DirectCast(reader.GetValue(0), TResult)
+                                                    tcs.SetResult(result)
+                                                Catch ex As Exception
+                                                    tcs.SetException(ex)
+                                                End Try
+                                            End Sub)
+                          End Sub)
+
+        Return tcs.Task
     End Function
 #End If
 
