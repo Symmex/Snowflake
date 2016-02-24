@@ -1,4 +1,4 @@
-﻿#If TargetFramework >= 4.0 Then
+﻿#If TargetFramework >= "4.0" Then
 Imports System.Threading.Tasks
 #End If
 Imports Symmex.Snowflake.Common
@@ -23,11 +23,19 @@ Public MustInherit Class DistributedCommand(Of T)
         Return Me.Execute()
     End Function
 
-#If TargetFramework >= 4.0 Then
+#If TargetFramework = "4.0" Then
     Public Overridable Function ExecuteAsync() As Task(Of T) Implements IDistributedCommand(Of T).ExecuteAsync
         Return Task.Factory.FromResult(Of T)(Nothing)
     End Function
+#End If
 
+#If TargetFramework > "4.0" Then
+    Public Overridable Function ExecuteAsync() As Task(Of T) Implements IDistributedCommand(Of T).ExecuteAsync
+        Return Task.FromResult(Of T)(Nothing)
+    End Function
+#End If
+
+#If TargetFramework >= "4.0" Then
     Private Function IDistributedCommand_ExecuteAsync() As Task(Of Object) Implements IDistributedCommand.ExecuteAsync
         Return Me.ExecuteAsync() _
             .ContinueWith(Function(ct) DirectCast(ct.Result, Object))

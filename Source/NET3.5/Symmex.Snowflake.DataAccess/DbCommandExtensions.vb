@@ -89,11 +89,6 @@ Public Module DbCommandExtensions
     End Function
 
     <Extension()>
-    Public Function ExecuteScalarAsync(Of TResult)(cmd As DbCommand) As Task(Of TResult)
-        Return cmd.ExecuteScalarAsync(Of TResult)(CancellationToken.None)
-    End Function
-
-    <Extension()>
     Public Function ExecuteScalarAsync(Of TResult)(cmd As DbCommand, cancellationToken As CancellationToken) As Task(Of TResult)
         Dim tcs As New TaskCompletionSource(Of TResult)()
 
@@ -128,6 +123,35 @@ Public Module DbCommandExtensions
                           End Sub)
 
         Return tcs.Task
+    End Function
+#End If
+
+#If TargetFramework > "4.0" Then
+    <Extension()>
+    Public Function ExecuteScalarAsync(Of TResult)(cmd As DbCommand, cancellationToken As CancellationToken) As Task(Of TResult)
+        Dim tcs As New TaskCompletionSource(Of TResult)()
+
+        cmd.ExecuteScalarAsync(cancellationToken) _
+            .ContinueWith(Sub(t)
+                              If t.IsFaulted Then
+                                  tcs.SetException(t.Exception)
+                              End If
+
+                              If t.IsCanceled Then
+                                  tcs.SetCanceled()
+                              End If
+
+                              tcs.SetResult(DirectCast(t.Result, TResult))
+                          End Sub)
+
+        Return tcs.Task
+    End Function
+#End If
+
+#If TargetFramework >= "4.0" Then
+    <Extension()>
+    Public Function ExecuteScalarAsync(Of TResult)(cmd As DbCommand) As Task(Of TResult)
+        Return cmd.ExecuteScalarAsync(Of TResult)(CancellationToken.None)
     End Function
 #End If
 

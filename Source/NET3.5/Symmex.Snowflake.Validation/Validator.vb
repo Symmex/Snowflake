@@ -1,4 +1,4 @@
-﻿#If TargetFramework >= 4.0 Then
+﻿#If TargetFramework >= "4.0" Then
 Imports System.Threading.Tasks
 #End If
 Imports Symmex.Snowflake.Validation
@@ -18,7 +18,7 @@ Public MustInherit Class Validator(Of T)
         End Get
     End Property
 
-#If TargetFramework >= 4.0 Then
+#If TargetFramework >= "4.0" Then
     Private _AsyncValidationMethods As Dictionary(Of String, Func(Of T, ValidationResult, Task))
     Protected ReadOnly Property AsyncValidationMethods As Dictionary(Of String, Func(Of T, ValidationResult, Task))
         Get
@@ -82,7 +82,7 @@ Public MustInherit Class Validator(Of T)
         End If
     End Sub
 
-#If TargetFramework >= 4.0 Then
+#If TargetFramework >= "4.0" Then
     Public Function ValidateAsync(item As T) As Task(Of ValidationResult) Implements IValidator(Of T).ValidateAsync
         Dim result As New ValidationResult()
 

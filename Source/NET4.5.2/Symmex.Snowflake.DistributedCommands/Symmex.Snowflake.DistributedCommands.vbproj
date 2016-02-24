@@ -22,7 +22,7 @@
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <DefineConstants>NETMajorVersion=4,NETMinorVersion=5</DefineConstants>
+    <DefineConstants>TargetFramework="4.5.2"</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,7 +34,7 @@
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <DefineConstants>NETMajorVersion=4,NETMinorVersion=5</DefineConstants>
+    <DefineConstants>TargetFramework="4.5.2"</DefineConstants>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>

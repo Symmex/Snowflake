@@ -21,7 +21,7 @@
     <DocumentationFile>
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <DefineConstants>NETMajorVersion=4,NETMinorVersion=5</DefineConstants>
+    <DefineConstants>TargetFramework="4.5.2"</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,7 +33,7 @@
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>NETMajorVersion=4,NETMinorVersion=5</DefineConstants>
+    <DefineConstants>TargetFramework="4.5.2"</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -73,6 +73,9 @@
     </Compile>
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Validation\ValidationError.vb">
       <Link>ValidationError.vb</Link>
+    </Compile>
+    <Compile Include="..\..\NET3.5\Symmex.Snowflake.Validation\ValidationException.vb">
+      <Link>ValidationException.vb</Link>
     </Compile>
     <Compile Include="..\..\NET3.5\Symmex.Snowflake.Validation\ValidationResult.vb">
       <Link>ValidationResult.vb</Link>

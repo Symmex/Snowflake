@@ -1,22 +1,6 @@
-﻿Imports System.Runtime.Serialization
+﻿Public Class ValidationResult
 
-<DataContract()>
-Public Class ValidationResult
-
-    Private _Errors As List(Of ValidationError)
-    <DataMember()>
-    Public Property Errors As List(Of ValidationError)
-        Get
-            If _Errors Is Nothing Then
-                _Errors = New List(Of ValidationError)()
-            End If
-
-            Return _Errors
-        End Get
-        Set(value As List(Of ValidationError))
-            _Errors = value
-        End Set
-    End Property
+    Public Property Errors As List(Of ValidationError) = New List(Of ValidationError)()
 
     Public ReadOnly Property IsValid As Boolean
         Get
@@ -46,5 +30,11 @@ Public Class ValidationResult
         Dim errorList = Me.Errors.Where(Function(item) item.PropertyName = propertyName).Select(Function(item) item.Message)
         Return String.Join(vbNewLine, errorList.ToArray())
     End Function
+
+    Public Sub ThrowIfInvalid()
+        If Not Me.IsValid Then
+            Throw New ValidationException(Me)
+        End If
+    End Sub
 
 End Class

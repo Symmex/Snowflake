@@ -1,4 +1,4 @@
-﻿#If TargetFramework >= 4.0 Then
+﻿#If TargetFramework >= "4.0" Then
 Imports System.Threading.Tasks
 #End If
 Imports Symmex.Snowflake.Common
@@ -58,7 +58,7 @@ Public NotInheritable Class DistributedCommandManager
         Return currentSerializer.Deserialize(resultType, commandEnvelope.Item)
     End Function
 
-#If TargetFramework >= 4.0 Then
+#If TargetFramework >= "4.0" Then
     Public Shared Function ExecuteAsync(Of T)(cmd As IDistributedCommand(Of T)) As Task(Of T)
         Return ExecuteAsync(DirectCast(cmd, IDistributedCommand)) _
             .ContinueWith(Function(ct) DirectCast(ct.Result, T))

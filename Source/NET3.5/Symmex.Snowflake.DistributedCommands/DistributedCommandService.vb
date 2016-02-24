@@ -1,4 +1,4 @@
-﻿#If TargetFramework >= 4.0 Then
+﻿#If TargetFramework >= "4.0" Then
 Imports System.Threading.Tasks
 #End If
 
@@ -30,7 +30,7 @@ Public Class DistributedCommandService
         Return currentSerializer.Serialize(resultEnvelope)
     End Function
 
-#If TargetFramework >= 4.0 Then
+#If TargetFramework >= "4.0" Then
     Public Function BeginExecute(commandEnvelope As String, callback As AsyncCallback, state As Object) As IAsyncResult Implements IDistributedCommandService.BeginExecute
         Dim completionSource As New TaskCompletionSource(Of String)(state)
 

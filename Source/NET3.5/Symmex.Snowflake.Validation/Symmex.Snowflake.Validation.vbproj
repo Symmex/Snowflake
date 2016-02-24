@@ -90,6 +90,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ValidationError.vb" />
+    <Compile Include="ValidationException.vb" />
     <Compile Include="ValidationResult.vb" />
     <Compile Include="Validator.vb" />
   </ItemGroup>
