@@ -65,6 +65,38 @@ Public Module DataReaderExtensions
             Return list
         End Using
     End Function
+
+    <Extension()>
+    Public Async Function ToSingleAsync(Of T)(ByVal dataReader As DbDataReader, ByVal factoryMethod As Func(Of DbDataReader, Task(Of T))) As Task(Of T)
+        Using dataReader
+            Await dataReader.ReadAsync()
+            Return Await factoryMethod.Invoke(dataReader)
+        End Using
+    End Function
+
+    <Extension()>
+    Public Async Function ToSingleOrDefaultAsync(Of T)(ByVal dataReader As DbDataReader, ByVal factoryMethod As Func(Of DbDataReader, Task(Of T))) As Task(Of T)
+        Using dataReader
+            If Await dataReader.ReadAsync() Then
+                Return Await factoryMethod.Invoke(dataReader)
+            Else
+                Return Nothing
+            End If
+        End Using
+    End Function
+
+    <Extension()>
+    Public Async Function ToListAsync(Of T)(ByVal dataReader As DbDataReader, ByVal factoryMethod As Func(Of DbDataReader, Task(Of T))) As Task(Of List(Of T))
+        Using dataReader
+            Dim list As New List(Of T)()
+
+            While Await dataReader.ReadAsync()
+                list.Add(Await factoryMethod.Invoke(dataReader))
+            End While
+
+            Return list
+        End Using
+    End Function
 #End If
 
 End Module
