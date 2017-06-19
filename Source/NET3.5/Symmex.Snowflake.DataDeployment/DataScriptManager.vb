@@ -1,6 +1,4 @@
-﻿Imports System.Reflection
-Imports System.Resources
-Imports System.IO
+﻿Imports System.IO
 Imports System.Text
 Imports System.Xml.Serialization
 Imports System.Security.Cryptography
@@ -12,8 +10,8 @@ Public MustInherit Class DataScriptManager
 
     Private _IsInitialized As Boolean
     Private _IsPrepared As Boolean
-    Private _Provider As DbProviderFactory
-    Private _ConnectionStringBuilder As DbConnectionStringBuilder
+
+    Private _ConnectionString As String
     Private _DatabaseName As String
 
     Protected MustOverride ReadOnly Property BatchSeparator As String
@@ -83,9 +81,7 @@ Public MustInherit Class DataScriptManager
             Throw New ArgumentNullException("databaseName")
         End If
 
-        _Provider = provider
-        _ConnectionStringBuilder = _Provider.CreateConnectionStringBuilder()
-        _ConnectionStringBuilder.ConnectionString = connectionString
+        _ConnectionString = connectionString
         _DatabaseName = databaseName
 
         Me.Initialize()
@@ -135,7 +131,7 @@ Public MustInherit Class DataScriptManager
             Me.OutdatedScripts.Clear()
             Me.ExistingScripts.Clear()
 
-            Using conn = Me.CreateConnection()
+            Using conn = OpenConnection()
                 Using cmd = conn.CreateCommand()
                     cmd.CommandText = Me.DataScriptInfoQueryString
 
@@ -169,7 +165,7 @@ Public MustInherit Class DataScriptManager
     Public Sub ExecuteScripts(executeAll As Boolean)
         Dim scriptsToRun = Me.GetScriptsToRun(executeAll)
 
-        Using conn = Me.CreateConnection()
+        Using conn = OpenConnection()
             For Each script In scriptsToRun
                 Dim e As DataScriptExecutedEventArgs
 
@@ -244,7 +240,7 @@ Public MustInherit Class DataScriptManager
     End Function
 
     Private Sub EnsureDatabaseExists()
-        Using conn = Me.CreateConnection(False)
+        Using conn = OpenConnection(Nothing)
             Using cmd = conn.CreateCommand()
                 cmd.CommandText = String.Format(Me.EnsureDatabaseExistsString, _DatabaseName)
                 cmd.ExecuteNonQuery()
@@ -253,7 +249,7 @@ Public MustInherit Class DataScriptManager
     End Sub
 
     Private Sub EnsureDataScriptInfoTableExists()
-        Using conn = Me.CreateConnection()
+        Using conn = OpenConnection()
             Using cmd = conn.CreateCommand()
                 cmd.CommandText = Me.EnsureDataScriptInfoTableExistsString
                 cmd.ExecuteNonQuery()
@@ -276,17 +272,15 @@ Public MustInherit Class DataScriptManager
         Return Convert.ToBase64String(hash)
     End Function
 
-    Private Function CreateConnection(Optional useDatabse As Boolean = True) As IDbConnection
-        Dim conn = _Provider.CreateConnection()
-        conn.ConnectionString = _ConnectionStringBuilder.ConnectionString
-        conn.Open()
-
-        If useDatabse Then
-            conn.ChangeDatabase(_DatabaseName)
-        End If
-
-        Return conn
+    Private Function OpenConnection() As IDbConnection
+        Return OpenConnection(_ConnectionString, _DatabaseName)
     End Function
+
+    Private Function OpenConnection(databaseName As String) As IDbConnection
+        Return OpenConnection(_ConnectionString, databaseName)
+    End Function
+
+    Protected MustOverride Function OpenConnection(connectionString As String, databaseName As String) As IDbConnection
 
     Private Sub InsertDataScriptInfo(conn As IDbConnection, script As DataScriptInfo)
         Using cmd = conn.CreateCommand()

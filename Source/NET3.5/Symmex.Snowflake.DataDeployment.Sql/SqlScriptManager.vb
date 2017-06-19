@@ -50,4 +50,16 @@ Public Class SqlScriptManager
         MyBase.New(SqlClientFactory.Instance, connectionString, databaseName)
     End Sub
 
+    Protected Overrides Function OpenConnection(connectionString As String, databaseName As String) As IDbConnection
+        Dim builder = New SqlConnectionStringBuilder(connectionString)
+        If databaseName IsNot Nothing Then
+            builder.InitialCatalog = databaseName
+        End If
+
+        Dim connection = New SqlConnection(builder.ConnectionString)
+        connection.Open()
+
+        Return connection
+    End Function
+
 End Class
