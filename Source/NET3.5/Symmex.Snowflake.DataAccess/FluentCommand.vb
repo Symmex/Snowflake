@@ -110,7 +110,7 @@ Public Class FluentCommand
     Protected Overrides Function ExecuteDbDataReader(behavior As CommandBehavior) As DbDataReader
         Dim conn = _Db.OpenConnection()
         _InnerCommand.Connection = conn
-        Return _InnerCommand.ExecuteReader(behavior)
+        Return _InnerCommand.ExecuteReader(CommandBehavior.CloseConnection)
     End Function
 
     Protected Overrides Sub Dispose(disposing As Boolean)
