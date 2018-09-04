@@ -125,7 +125,7 @@ Public Class FluentCommand
     Protected Overrides Async Function ExecuteDbDataReaderAsync(behavior As CommandBehavior, cancellationToken As CancellationToken) As Task(Of DbDataReader)
         Dim conn = Await _Db.OpenConnectionAsync(cancellationToken)
         _InnerCommand.Connection = conn
-        Dim reader = Await _InnerCommand.ExecuteReaderAsync(behavior)
+        Dim reader = Await _InnerCommand.ExecuteReaderAsync(CommandBehavior.CloseConnection)
 
         Return reader
     End Function
