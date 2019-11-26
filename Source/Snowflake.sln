@@ -1,59 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NET3.5", "NET3.5", "{40293133-E4F2-41F5-9AC2-9CD3B5D3C258}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Caching", "Symmex.Snowflake.Caching\Symmex.Snowflake.Caching.vbproj", "{14D6F2F3-3269-4B93-8B92-4A5F00BE1E2B}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Common", "NET3.5\Symmex.Snowflake.Common\Symmex.Snowflake.Common.vbproj", "{41364AEE-13A7-420F-8C07-A8197D6AD458}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Common", "Symmex.Snowflake.Common\Symmex.Snowflake.Common.vbproj", "{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataAccess", "NET3.5\Symmex.Snowflake.DataAccess\Symmex.Snowflake.DataAccess.vbproj", "{781E1753-97B9-44BA-9A44-D7E015216EC1}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataAccess", "Symmex.Snowflake.DataAccess\Symmex.Snowflake.DataAccess.vbproj", "{381A2204-74E8-48EE-88FA-87A4CC5101B8}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataDeployment", "NET3.5\Symmex.Snowflake.DataDeployment\Symmex.Snowflake.DataDeployment.vbproj", "{6DADCE0B-ED98-4513-B185-E7330323C65C}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataDeployment", "Symmex.Snowflake.DataDeployment\Symmex.Snowflake.DataDeployment.vbproj", "{649C5028-0585-40CC-8FC7-9A018756DABC}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataDeployment.Sql", "NET3.5\Symmex.Snowflake.DataDeployment.Sql\Symmex.Snowflake.DataDeployment.Sql.vbproj", "{AC54360E-FF96-4613-9BFA-A7E8650EF6D4}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataDeployment.Sql", "Symmex.Snowflake.DataDeployment.Sql\Symmex.Snowflake.DataDeployment.Sql.vbproj", "{2B3CD95D-3D64-4011-A57D-6DBE29269A2E}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataObjects", "NET3.5\Symmex.Snowflake.DataObjects\Symmex.Snowflake.DataObjects.vbproj", "{BBDE80CA-0E07-49C7-A524-F8740A649EF6}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataObjects", "Symmex.Snowflake.DataObjects\Symmex.Snowflake.DataObjects.vbproj", "{F7B33A60-5A8A-41C8-ABA4-A5C4A525A234}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Modularization", "NET3.5\Symmex.Snowflake.Modularization\Symmex.Snowflake.Modularization.vbproj", "{5D721F96-CD0B-426F-823B-0B60FC58E2D7}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DistributedCommands", "Symmex.Snowflake.DistributedCommands\Symmex.Snowflake.DistributedCommands.vbproj", "{B639F7C2-E04B-4140-BCA0-C89AF177327C}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Mvvm", "NET3.5\Symmex.Snowflake.Mvvm\Symmex.Snowflake.Mvvm.vbproj", "{51A17C4C-4FD8-4B86-8FC3-F1B2AC84487D}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Modularization", "Symmex.Snowflake.Modularization\Symmex.Snowflake.Modularization.vbproj", "{B881E9B1-CA06-402D-9668-9A4363DF2559}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.ResourceManagement", "NET3.5\Symmex.Snowflake.ResourceManagement\Symmex.Snowflake.ResourceManagement.vbproj", "{59163312-DD35-4E15-AF10-9E9135FAFE9A}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Mvvm", "Symmex.Snowflake.Mvvm\Symmex.Snowflake.Mvvm.vbproj", "{3FD363EB-32F7-45A4-9C51-18845BB52BB2}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Validation", "NET3.5\Symmex.Snowflake.Validation\Symmex.Snowflake.Validation.vbproj", "{CF423BEF-D272-428D-B3A1-F6CF4D14DFB9}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.ResourceManagement", "Symmex.Snowflake.ResourceManagement\Symmex.Snowflake.ResourceManagement.vbproj", "{2519575C-B3C1-48B0-BEEA-108937313468}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Wpf", "NET3.5\Symmex.Snowflake.Wpf\Symmex.Snowflake.Wpf.vbproj", "{A939C071-B4DB-45D8-96A8-36FDB520D5DE}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Validation", "Symmex.Snowflake.Validation\Symmex.Snowflake.Validation.vbproj", "{3506D690-628E-40F2-A08A-3D607614EEA0}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Caching", "NET3.5\Symmex.Snowflake.Caching\Symmex.Snowflake.Caching.vbproj", "{FD82428E-E106-44DB-BA5C-22CE45515226}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NET4.5.2", "NET4.5.2", "{7934D243-AE33-4256-9B51-CB3EBE1BAF0B}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Common", "NET4.5.2\Symmex.Snowflake.Common\Symmex.Snowflake.Common.vbproj", "{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Caching", "NET4.5.2\Symmex.Snowflake.Caching\Symmex.Snowflake.Caching.vbproj", "{14D6F2F3-3269-4B93-8B92-4A5F00BE1E2B}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataAccess", "NET4.5.2\Symmex.Snowflake.DataAccess\Symmex.Snowflake.DataAccess.vbproj", "{381A2204-74E8-48EE-88FA-87A4CC5101B8}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataDeployment", "NET4.5.2\Symmex.Snowflake.DataDeployment\Symmex.Snowflake.DataDeployment.vbproj", "{649C5028-0585-40CC-8FC7-9A018756DABC}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataDeployment.Sql", "NET4.5.2\Symmex.Snowflake.DataDeployment.Sql\Symmex.Snowflake.DataDeployment.Sql.vbproj", "{2B3CD95D-3D64-4011-A57D-6DBE29269A2E}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DataObjects", "NET4.5.2\Symmex.Snowflake.DataObjects\Symmex.Snowflake.DataObjects.vbproj", "{F7B33A60-5A8A-41C8-ABA4-A5C4A525A234}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Modularization", "NET4.5.2\Symmex.Snowflake.Modularization\Symmex.Snowflake.Modularization.vbproj", "{B881E9B1-CA06-402D-9668-9A4363DF2559}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Mvvm", "NET4.5.2\Symmex.Snowflake.Mvvm\Symmex.Snowflake.Mvvm.vbproj", "{3FD363EB-32F7-45A4-9C51-18845BB52BB2}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.ResourceManagement", "NET4.5.2\Symmex.Snowflake.ResourceManagement\Symmex.Snowflake.ResourceManagement.vbproj", "{2519575C-B3C1-48B0-BEEA-108937313468}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Validation", "NET4.5.2\Symmex.Snowflake.Validation\Symmex.Snowflake.Validation.vbproj", "{3506D690-628E-40F2-A08A-3D607614EEA0}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Wpf", "NET4.5.2\Symmex.Snowflake.Wpf\Symmex.Snowflake.Wpf.vbproj", "{4E17A52A-09D1-487F-BA5E-D9AB29B3F0A1}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DistributedCommands", "NET3.5\Symmex.Snowflake.DistributedCommands\Symmex.Snowflake.DistributedCommands.vbproj", "{8C56B4D2-00B7-41D0-8C4A-E40791259AD6}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.DistributedCommands", "NET4.5.2\Symmex.Snowflake.DistributedCommands\Symmex.Snowflake.DistributedCommands.vbproj", "{B639F7C2-E04B-4140-BCA0-C89AF177327C}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Symmex.Snowflake.Wpf", "Symmex.Snowflake.Wpf\Symmex.Snowflake.Wpf.vbproj", "{4E17A52A-09D1-487F-BA5E-D9AB29B3F0A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,58 +33,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{41364AEE-13A7-420F-8C07-A8197D6AD458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41364AEE-13A7-420F-8C07-A8197D6AD458}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41364AEE-13A7-420F-8C07-A8197D6AD458}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41364AEE-13A7-420F-8C07-A8197D6AD458}.Release|Any CPU.Build.0 = Release|Any CPU
-		{781E1753-97B9-44BA-9A44-D7E015216EC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{781E1753-97B9-44BA-9A44-D7E015216EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{781E1753-97B9-44BA-9A44-D7E015216EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{781E1753-97B9-44BA-9A44-D7E015216EC1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DADCE0B-ED98-4513-B185-E7330323C65C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DADCE0B-ED98-4513-B185-E7330323C65C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DADCE0B-ED98-4513-B185-E7330323C65C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DADCE0B-ED98-4513-B185-E7330323C65C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC54360E-FF96-4613-9BFA-A7E8650EF6D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC54360E-FF96-4613-9BFA-A7E8650EF6D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC54360E-FF96-4613-9BFA-A7E8650EF6D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC54360E-FF96-4613-9BFA-A7E8650EF6D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBDE80CA-0E07-49C7-A524-F8740A649EF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBDE80CA-0E07-49C7-A524-F8740A649EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBDE80CA-0E07-49C7-A524-F8740A649EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBDE80CA-0E07-49C7-A524-F8740A649EF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D721F96-CD0B-426F-823B-0B60FC58E2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D721F96-CD0B-426F-823B-0B60FC58E2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D721F96-CD0B-426F-823B-0B60FC58E2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D721F96-CD0B-426F-823B-0B60FC58E2D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{51A17C4C-4FD8-4B86-8FC3-F1B2AC84487D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51A17C4C-4FD8-4B86-8FC3-F1B2AC84487D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51A17C4C-4FD8-4B86-8FC3-F1B2AC84487D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51A17C4C-4FD8-4B86-8FC3-F1B2AC84487D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59163312-DD35-4E15-AF10-9E9135FAFE9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59163312-DD35-4E15-AF10-9E9135FAFE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59163312-DD35-4E15-AF10-9E9135FAFE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59163312-DD35-4E15-AF10-9E9135FAFE9A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF423BEF-D272-428D-B3A1-F6CF4D14DFB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF423BEF-D272-428D-B3A1-F6CF4D14DFB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF423BEF-D272-428D-B3A1-F6CF4D14DFB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF423BEF-D272-428D-B3A1-F6CF4D14DFB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A939C071-B4DB-45D8-96A8-36FDB520D5DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A939C071-B4DB-45D8-96A8-36FDB520D5DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A939C071-B4DB-45D8-96A8-36FDB520D5DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A939C071-B4DB-45D8-96A8-36FDB520D5DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD82428E-E106-44DB-BA5C-22CE45515226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD82428E-E106-44DB-BA5C-22CE45515226}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD82428E-E106-44DB-BA5C-22CE45515226}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD82428E-E106-44DB-BA5C-22CE45515226}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449}.Release|Any CPU.Build.0 = Release|Any CPU
 		{14D6F2F3-3269-4B93-8B92-4A5F00BE1E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{14D6F2F3-3269-4B93-8B92-4A5F00BE1E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14D6F2F3-3269-4B93-8B92-4A5F00BE1E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14D6F2F3-3269-4B93-8B92-4A5F00BE1E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449}.Release|Any CPU.Build.0 = Release|Any CPU
 		{381A2204-74E8-48EE-88FA-87A4CC5101B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{381A2204-74E8-48EE-88FA-87A4CC5101B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{381A2204-74E8-48EE-88FA-87A4CC5101B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -129,6 +57,10 @@ Global
 		{F7B33A60-5A8A-41C8-ABA4-A5C4A525A234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7B33A60-5A8A-41C8-ABA4-A5C4A525A234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7B33A60-5A8A-41C8-ABA4-A5C4A525A234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B639F7C2-E04B-4140-BCA0-C89AF177327C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B639F7C2-E04B-4140-BCA0-C89AF177327C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B639F7C2-E04B-4140-BCA0-C89AF177327C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B639F7C2-E04B-4140-BCA0-C89AF177327C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B881E9B1-CA06-402D-9668-9A4363DF2559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B881E9B1-CA06-402D-9668-9A4363DF2559}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B881E9B1-CA06-402D-9668-9A4363DF2559}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -149,42 +81,11 @@ Global
 		{4E17A52A-09D1-487F-BA5E-D9AB29B3F0A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E17A52A-09D1-487F-BA5E-D9AB29B3F0A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E17A52A-09D1-487F-BA5E-D9AB29B3F0A1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C56B4D2-00B7-41D0-8C4A-E40791259AD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C56B4D2-00B7-41D0-8C4A-E40791259AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C56B4D2-00B7-41D0-8C4A-E40791259AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C56B4D2-00B7-41D0-8C4A-E40791259AD6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B639F7C2-E04B-4140-BCA0-C89AF177327C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B639F7C2-E04B-4140-BCA0-C89AF177327C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B639F7C2-E04B-4140-BCA0-C89AF177327C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B639F7C2-E04B-4140-BCA0-C89AF177327C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{41364AEE-13A7-420F-8C07-A8197D6AD458} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{781E1753-97B9-44BA-9A44-D7E015216EC1} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{6DADCE0B-ED98-4513-B185-E7330323C65C} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{AC54360E-FF96-4613-9BFA-A7E8650EF6D4} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{BBDE80CA-0E07-49C7-A524-F8740A649EF6} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{5D721F96-CD0B-426F-823B-0B60FC58E2D7} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{51A17C4C-4FD8-4B86-8FC3-F1B2AC84487D} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{59163312-DD35-4E15-AF10-9E9135FAFE9A} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{CF423BEF-D272-428D-B3A1-F6CF4D14DFB9} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{A939C071-B4DB-45D8-96A8-36FDB520D5DE} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{FD82428E-E106-44DB-BA5C-22CE45515226} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{DA2BD6FA-AB2C-422E-8678-F72EFE4AD449} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{14D6F2F3-3269-4B93-8B92-4A5F00BE1E2B} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{381A2204-74E8-48EE-88FA-87A4CC5101B8} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{649C5028-0585-40CC-8FC7-9A018756DABC} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{2B3CD95D-3D64-4011-A57D-6DBE29269A2E} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{F7B33A60-5A8A-41C8-ABA4-A5C4A525A234} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{B881E9B1-CA06-402D-9668-9A4363DF2559} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{3FD363EB-32F7-45A4-9C51-18845BB52BB2} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{2519575C-B3C1-48B0-BEEA-108937313468} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{3506D690-628E-40F2-A08A-3D607614EEA0} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{4E17A52A-09D1-487F-BA5E-D9AB29B3F0A1} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
-		{8C56B4D2-00B7-41D0-8C4A-E40791259AD6} = {40293133-E4F2-41F5-9AC2-9CD3B5D3C258}
-		{B639F7C2-E04B-4140-BCA0-C89AF177327C} = {7934D243-AE33-4256-9B51-CB3EBE1BAF0B}
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {155DC815-742F-4C92-B2FC-4C87BA2FBA8C}
 	EndGlobalSection
 EndGlobal
